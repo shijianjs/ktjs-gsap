@@ -5,37 +5,27 @@ title: Introduction
 
 # Introduction
 
-`ktjs-wrapper-template` is a starting point for Kotlin/JS wrappers around npm packages, mostly Web
-Components. It is deliberately **not** a scaffold full of placeholders: the repository is a complete
-project that builds, tests in a real browser, documents itself and deploys to GitHub Pages, so copying
-it gives you something that runs on the first `./gradlew build`.
+`ktjs-gsap` is a Kotlin/JS wrapper for [`gsap`](https://github.com/greensock/GSAP) 3.15.1-kt.1: every type and member of
+the upstream `.d.ts` files becomes an `external` declaration the compiler checks, with no
+`dynamic` fallback.
 
-## What is in it
+The wrapped surface is the whole `gsap` package: the core engine (`gsap.to`, `gsap.timeline`, `gsap.context`, `gsap.matchMedia`, `gsap.utils`), the `Animation` / `Tween` / `Timeline` class hierarchy, the easing classes, and every plugin — `ScrollTrigger`, `Observer`, `Draggable`, `Flip`, `SplitText`, `MotionPathPlugin`, `ScrollSmoother`, `InertiaPlugin`, `MorphSVGPlugin`, `DrawSVGPlugin`, `TextPlugin`, `ScrambleTextPlugin`, `ScrollToPlugin`, `PixiPlugin`, `Physics2DPlugin`, `PhysicsPropsPlugin`, `CSSRulePlugin`, `EaselPlugin`, `GSDevTools`, `CustomEase`, `CustomBounce`, `CustomWiggle` and the `EasePack`.
 
-| Part | Role |
-| --- | --- |
-| `ktjs-wrapper-template-core` | the sample wrapper: `@vaadin/button` 25.3.5. One npm package, one Gradle module, one Kotlin package — copy it for the next package |
-| `demo` | a page that creates two `<vaadin-button>` elements through the wrapper; published under `/demo/` |
-| `docs` | this site: Kotlin configuration, Markdown pages, built by the [ktjs-docusaurus](https://github.com/shijianjs/ktjs-docusaurus) Gradle plugin |
-| the rest | npm versions in one `package.json`, per-module `-kt.N` revisions, Detekt, Playwright browser tests, Maven Central release through the hub, Pages workflow |
+## What is wrapped
 
-The API reference under `/api/` is Dokka output for the published modules — the same Dokka run that
-`pagesSite` assembles next to this site.
+| Module | Gradle artifact | Upstream |
+| --- | --- | --- |
+| `ktjs-gsap` | `io.github.shijianjs:ktjs-gsap` | `gsap` 3.15.1 (one npm package, all plugins included) |
+
+One npm package means one Kotlin package (`io.github.shijianjs.ktjs.gsap`) with sub-packages, not one Gradle module per plugin.
+
+## License
+
+The wrapper itself is MIT. The upstream `gsap` license differs from it — read the
+[license notes](guide/license.md) before shipping it commercially.
 
 ## Where to go next
 
-- [Getting started](guide/getting-started.md) — build it, test it, run the dev server.
-- [Deriving a project](guide/deriving-a-project.md) — the rename checklist for turning this into your
-  own wrapper.
-
-## How the pieces fit together
-
-```mermaid
-flowchart TB
-  T["ktjs-wrapper-template<br/>(copy me)"] --> C["core: the sample wrapper"]
-  T --> D["demo: a runnable page"]
-  T --> G["docs: this site"]
-  C --> V["@vaadin/button"]
-  G --> B["ktjs-docusaurus<br/>Gradle plugin"]
-  B --> P["GitHub Pages"]
-```
+- [Getting started](guide/getting-started.md) — add the dependency, make the first call, run the build.
+- [API overview](guide/api-overview.md) — package layout, type mapping conventions, common patterns.
+- [Demo](guide/demo.md) — see it running in the browser.
