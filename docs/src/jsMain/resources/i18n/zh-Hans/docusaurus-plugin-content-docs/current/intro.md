@@ -5,7 +5,7 @@ title: 简介
 
 # 简介
 
-`ktjs-gsap` 是 [GSAP](https://github.com/greensock/GSAP) 生态里 `gsap` 3.15.1-kt.1 的 Kotlin/JS wrapper：上游
+`ktjs-gsap` 是 [GSAP](https://github.com/greensock/GSAP) 生态里 `gsap` 3.15.1 的 Kotlin/JS wrapper：上游
 `.d.ts` 里的每个类型和成员都落成可被编译器检查的 `external` 声明，不靠 `dynamic` 兜底。
 
 封装范围就是整个 `gsap` 包：核心引擎（`gsap.to`、`gsap.timeline`、`gsap.context`、`gsap.matchMedia`、`gsap.utils`）、`Animation` / `Tween` / `Timeline` 类层次、缓动类，以及全部插件 —— `ScrollTrigger`、`Observer`、`Draggable`、`Flip`、`SplitText`、`MotionPathPlugin`、`ScrollSmoother`、`InertiaPlugin`、`MorphSVGPlugin`、`DrawSVGPlugin`、`TextPlugin`、`ScrambleTextPlugin`、`ScrollToPlugin`、`PixiPlugin`、`Physics2DPlugin`、`PhysicsPropsPlugin`、`CSSRulePlugin`、`EaselPlugin`、`GSDevTools`、`CustomEase`、`CustomBounce`、`CustomWiggle` 与 `EasePack`。

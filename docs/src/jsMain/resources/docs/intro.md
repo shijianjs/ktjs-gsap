@@ -5,7 +5,7 @@ title: Introduction
 
 # Introduction
 
-`ktjs-gsap` is a Kotlin/JS wrapper for [`gsap`](https://github.com/greensock/GSAP) 3.15.1-kt.1: every type and member of
+`ktjs-gsap` is a Kotlin/JS wrapper for [`gsap`](https://github.com/greensock/GSAP) from [GSAP](https://github.com/greensock/GSAP) 3.15.1: every type and member of
 the upstream `.d.ts` files becomes an `external` declaration the compiler checks, with no
 `dynamic` fallback.
 
