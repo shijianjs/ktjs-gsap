@@ -548,6 +548,17 @@ klibs.io 从 Maven Central 与 GitHub 自动抓取，无需提交元数据文件
 
 - `demo` 只消费公共 API，不发布、也不进入 Dokka。根 `build.gradle.kts` 的发布与 Dokka 配置按
   `ktjs-gsap-` 前缀过滤子模块，新增非发布模块时沿用该约定。
+- **页面外壳来自 `ktjs-demo-kit`（`ktjs-dom-kit` 仓库的模块）**，demo 自己只留内容：`index.html` 里只声明一个
+  `<ktjs-demo-layout id="demo">`，`demo/Main.kt` 定义标签并把 `LayoutConfig`（菜单、语言、主题、文案、版本
+  与三个链接、logo）挂上去。菜单在 `demo/SiteMenu.kt`（`Group` + `Entry`，一个 `Entry` 一页），外壳文案在
+  `demo/SiteTexts.kt`（每语言一个 `SiteTexts`），页面在 `demo/page/<分组>/`，每页一个 `Translations` +
+  `Binder`：切语言只重写文本，不重建节点。
+- **demo 的 JS 编译目标必须是 ES2015**：外壳是自定义元素，ES5 下 Kotlin 生成
+  `function X() { HTMLElement.call(this) }`，而 DOM 构造函数只能 `new`，标签永远不升级——页面白屏，
+  console 里是 `Failed to construct 'HTMLElement'`。`demo/build.gradle.kts` 里
+  `js { compilerOptions { target = "es2015" } }` 是必需品，不是优化项。
+- Lumo 的 `lumo.css` / `utility.css` 由 `copyLumoStyles` 从根 npm 工作区拷进资源，`index.html` 用
+  `<link>` 引入：外壳的 wrapper 只带 JS 侧，不带 CSS。
 - 根 `package.json` 的 `browserslist` 是构建必需项，不是装饰：Babel 从生成的站点目录往上找到它才有编译
   目标。没有它 `@babel/preset-env` 按 ES5 处理，`async/await` 被翻成 regenerator 状态机，
   `@docusaurus/theme-mermaid` 里 `if (__DOCUSAURUS_MERMAID_LAYOUT_ELK_ENABLED__)` 这个守卫就不再是死代码，
