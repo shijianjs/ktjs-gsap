@@ -18,6 +18,22 @@ title: 简介
 
 一个 npm 包对应一个 Kotlin 包（`io.github.shijianjs.ktjs.gsap`）及其子包，而不是每个插件一个 Gradle 模块。
 
+```mermaid
+flowchart TB
+  NPM["npm：gsap 3.15.1"] --> CORE["核心引擎<br/>gsap.to / timeline / context / matchMedia / utils"]
+  NPM --> CLS["类层次<br/>Animation → Tween / Timeline"]
+  NPM --> EASE["缓动类 + EasePack"]
+  NPM --> PL["插件<br/>ScrollTrigger、Draggable、SplitText、Flip 等"]
+  CORE --> K["Kotlin 声明<br/>io.github.shijianjs.ktjs.gsap"]
+  CLS --> K
+  EASE --> K
+  PL --> K
+  K --> D["演示页"]
+  K --> API["API 文档（Dokka）"]
+```
+
+上面每条边都是一个 Kotlin 声明，不是字符串查表：上游没有的调用编译不过，没 import 的插件包也用不了。
+
 ## 许可证
 
 wrapper 自身是 MIT。上游 `gsap` 的许可证与 wrapper 不同，商用前请读

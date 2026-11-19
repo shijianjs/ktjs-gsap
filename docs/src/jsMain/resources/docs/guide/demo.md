@@ -12,6 +12,19 @@ The demo page runs three real animations: a timeline with five staggered boxes (
 (`power2.out`, `back.out`, `elastic.out`, `bounce.out`, `circ.out`). Both buttons re-create the
 tween from scratch, so pressing Play twice shows the same motion instead of a resumed one.
 
+```mermaid
+flowchart LR
+  CORE["gsap()<br/>one wrapper call per animation"] --> TL["timeline<br/>paused: true, built once"]
+  CORE --> TW["tween<br/>rebuilt on every press"]
+  TL --> B1["box 1"] --> B2["box 2 … box 5<br/>each +=0.15s"]
+  TL --> P1["Play / Reset"]
+  SEL["easing select<br/>power2.out, back.out, elastic.out, …"] --> TW
+  P2["Play"] -->|"new tween"| TW
+```
+
+The two examples share one page because they are one story: the timeline shows a wrapper call chain,
+the tween shows a single call whose variables come from the page's own controls.
+
 The language button in the page header switches between English and Simplified Chinese: every
 visible string changes, not just the title.
 

@@ -19,6 +19,23 @@ The wrapped surface is the whole `gsap` package: the core engine (`gsap.to`, `gs
 
 One npm package means one Kotlin package (`io.github.shijianjs.ktjs.gsap`) with sub-packages, not one Gradle module per plugin.
 
+```mermaid
+flowchart TB
+  NPM["npm: gsap 3.15.1"] --> CORE["core engine<br/>gsap.to / timeline / context / matchMedia / utils"]
+  NPM --> CLS["class hierarchy<br/>Animation → Tween / Timeline"]
+  NPM --> EASE["easing classes + EasePack"]
+  NPM --> PL["plugins<br/>ScrollTrigger, Draggable, SplitText, Flip, …"]
+  CORE --> K["Kotlin declarations<br/>io.github.shijianjs.ktjs.gsap"]
+  CLS --> K
+  EASE --> K
+  PL --> K
+  K --> D["demo"]
+  K --> API["API reference (Dokka)"]
+```
+
+Every edge above is a Kotlin declaration, not a string lookup: a call that does not exist upstream does
+not compile, and a plugin cannot be used before its package is imported.
+
 ## License
 
 The wrapper itself is MIT. The upstream `gsap` license differs from it — read the
