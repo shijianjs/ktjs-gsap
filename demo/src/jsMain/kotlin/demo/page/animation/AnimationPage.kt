@@ -1,13 +1,15 @@
 package demo.page.animation
 
+import io.github.shijianjs.ktjs.demo.page.DemoPage
+import io.github.shijianjs.ktjs.dom.webcomponent.defineIfMissing
+import web.components.CustomElementReference
+import web.dom.TagName
 import io.github.shijianjs.ktjs.demo.i18n.Binder
 import io.github.shijianjs.ktjs.demo.i18n.Lang
 import io.github.shijianjs.ktjs.demo.i18n.Langs
 import io.github.shijianjs.ktjs.demo.i18n.Translations
 import io.github.shijianjs.ktjs.demo.i18n.texts
-import io.github.shijianjs.ktjs.demo.nav.Page
 import io.github.shijianjs.ktjs.demo.page.codeText
-import io.github.shijianjs.ktjs.demo.page.newPage
 import io.github.shijianjs.ktjs.demo.page.row
 import io.github.shijianjs.ktjs.demo.page.sectionBlock
 import io.github.shijianjs.ktjs.dom.element.invoke
@@ -86,8 +88,7 @@ private const val DOT_TRAVEL: Double = 520.0
  * The nodes are fields and the animations are built once; a language switch only rewrites text, so a
  * running or finished animation keeps its position while the copy changes.
  */
-internal class AnimationPage : Page {
-    private val page = newPage()
+internal class AnimationPage : DemoPage() {
 
     private val texts = Binder(animationTexts)
 
@@ -136,7 +137,6 @@ internal class AnimationPage : Page {
         }
     }
 
-    override val node get() = page
 
     init {
         texts.bind(timelinePlay, { it.play })
@@ -163,7 +163,7 @@ internal class AnimationPage : Page {
 
         attachDot()
 
-        page.body.append(timelineSection.root, easingSection.root)
+        body.append(timelineSection.root, easingSection.root)
 
         timelinePlay.clickEvent.addHandler {
             resetBoxes()
@@ -204,8 +204,22 @@ internal class AnimationPage : Page {
 
     override fun applyTranslation(lang: Lang) {
         val current = animationTexts[lang]
-        page.setTitle(current.title)
-        page.setSummary(current.summary)
+        setTitle(current.title)
+        setSummary(current.summary)
         texts.apply(lang)
     }
+
+    companion object : CustomElementReference<AnimationPage>(AnimationPage::class.js) {
+        val NAME: TagName<AnimationPage> = TagName("gsap-animation-page")
+
+        fun define() {
+            defineIfMissing(NAME, this)
+        }
+    }
+}
+
+/** Creates a defined `<gsap-animation-page>`. */
+internal fun newAnimationPage(): AnimationPage {
+    AnimationPage.define()
+    return AnimationPage.NAME()
 }
