@@ -24,9 +24,7 @@ import io.github.shijianjs.ktjs.vaadin.button.createButton
 import kotlin.js.JsAny
 import kotlin.js.unsafeCast
 import web.dom.clickEvent
-import web.events.EventHandler
 import web.events.addHandler
-import web.html.HTMLSelectElement
 import web.html.HTMLElement
 import web.html.HtmlTagName
 
@@ -92,13 +90,13 @@ internal class AnimationPage : DemoPage() {
 
     private val texts = Binder(animationTexts)
 
-    private val boxes: List<HTMLElement> = (1..5).map { box(it) }
+    private val boxes: List<Box> = (1..5).map { newBox(it) }
 
-    private val timelineStage: HTMLElement = stage().apply { boxes.forEach { append(it) } }
+    private val timelineStage: Stage = newStage().apply { boxes.forEach { append(it) } }
 
-    private val easingStage: HTMLElement = stage()
+    private val easingStage: Stage = newStage()
 
-    private val dotElement: HTMLElement = dot()
+    private val dotElement: Dot = newDot()
 
     private val timelinePlay = createButton()
 
@@ -108,11 +106,7 @@ internal class AnimationPage : DemoPage() {
 
     private val easingLabel: HTMLElement = HtmlTagName.label {}
 
-    private val easingSelect: HTMLSelectElement = picker().also { select ->
-        EASINGS.forEach { name ->
-            select.append(HtmlTagName.option { value = name; textContent = name })
-        }
-    }
+    private val easingSelect: EasingPicker = newEasingPicker(EASINGS)
 
     /**
      * The staggered timeline; built once, restarted by the Play button.
@@ -175,7 +169,7 @@ internal class AnimationPage : DemoPage() {
         }
         easingPlay.clickEvent.addHandler { playDot() }
         // A native `<select>`: the value it reports is exactly the `ease` name gsap takes.
-        easingSelect.onchange = EventHandler { playDot() }
+        easingSelect.onChange { playDot() }
     }
 
     /** The dot sits on the stage from the first paint; playing only restarts its position. */
