@@ -22,9 +22,6 @@ import web.cssom.`var`
 import web.cssom.px
 import web.html.HTMLElement
 
-/** The class the end-to-end suite uses to find the animated boxes; it carries no styling. */
-private val STAGE: ClassName = ClassName("stage")
-
 /** Wraps a DOM element as a gsap target; the only conversion an element needs. */
 internal fun HTMLElement.target(): TweenTarget = TweenTarget(this.unsafeCast<JsAny>())
 
@@ -58,5 +55,8 @@ internal class Stage : CustomElementAdapter() {
         }
     }
 
-    companion object : CustomElementReferenceAdapter<Stage>(Stage::class.js, "gsap-stage")
+    companion object : CustomElementReferenceAdapter<Stage>(Stage::class.js, "gsap-stage") {
+        /** The class the end-to-end suite uses to find the animated boxes; it carries no styling. */
+        private val STAGE: ClassName = ClassName("stage")
+    }
 }
