@@ -42,10 +42,3 @@ internal class EasingPicker : CustomElementAdapter() {
 
     companion object : CustomElementReferenceAdapter<EasingPicker>(EasingPicker::class.js, "gsap-easing-picker")
 }
-
-/** Creates a defined `<gsap-easing-picker>` offering [easings]. */
-internal fun newEasingPicker(easings: List<String>): EasingPicker {
-    // The companion registers the tag in its `init`; reading `NAME` upgrades the element the page already spells.
-    EasingPicker.NAME
-    return EasingPicker.NAME().also { it.offer(easings) }
-}

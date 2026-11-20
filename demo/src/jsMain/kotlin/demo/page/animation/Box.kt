@@ -12,9 +12,6 @@ import web.cssom.FontWeight
 import web.cssom.JustifyContent
 import web.cssom.px
 
-/** The class the end-to-end suite looks the squares up by; the styling sits on the element itself. */
-private val BOX: ClassName = ClassName("box")
-
 /**
  * `<gsap-box>`: one square of the staggered timeline, numbered so the order is readable.
  *
@@ -43,12 +40,9 @@ internal class Box : CustomElementAdapter() {
         textContent = index.toString()
     }
 
-    companion object : CustomElementReferenceAdapter<Box>(Box::class.js, "gsap-box")
-}
+    companion object : CustomElementReferenceAdapter<Box>(Box::class.js, "gsap-box") {
 
-/** Creates a defined `<gsap-box>` showing [index]. */
-internal fun newBox(index: Int): Box {
-    // The companion registers the tag in its `init`; reading `NAME` upgrades the element the page already spells.
-    Box.NAME
-    return Box.NAME().also { it.show(index) }
+        /** The class the end-to-end suite looks the squares up by; the styling sits on the element itself. */
+        private val BOX: ClassName = ClassName("box")
+    }
 }
