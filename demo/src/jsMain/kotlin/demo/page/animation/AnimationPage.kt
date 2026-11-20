@@ -1,18 +1,16 @@
 package demo.page.animation
 
 import io.github.shijianjs.ktjs.demo.page.DemoPage
-import io.github.shijianjs.ktjs.dom.webcomponent.defineIfMissing
-import web.components.CustomElementReference
-import web.dom.TagName
 import io.github.shijianjs.ktjs.demo.i18n.Binder
 import io.github.shijianjs.ktjs.demo.i18n.Lang
 import io.github.shijianjs.ktjs.demo.i18n.Langs
 import io.github.shijianjs.ktjs.demo.i18n.Translations
 import io.github.shijianjs.ktjs.demo.i18n.texts
-import io.github.shijianjs.ktjs.demo.page.codeText
-import io.github.shijianjs.ktjs.demo.page.row
-import io.github.shijianjs.ktjs.demo.page.sectionBlock
+import io.github.shijianjs.ktjs.demo.page.Blocks.codeText
+import io.github.shijianjs.ktjs.demo.page.Blocks.row
+import io.github.shijianjs.ktjs.demo.page.SectionBlock
 import io.github.shijianjs.ktjs.dom.element.invoke
+import io.github.shijianjs.ktjs.dom.webcomponent.CustomElementReferenceAdapter
 import io.github.shijianjs.ktjs.gsap.core.EaseLike
 import io.github.shijianjs.ktjs.gsap.core.Position
 import io.github.shijianjs.ktjs.gsap.core.TweenTarget
@@ -92,11 +90,11 @@ internal class AnimationPage : DemoPage() {
 
     private val boxes: List<Box> = (1..5).map { newBox(it) }
 
-    private val timelineStage: Stage = newStage().apply { boxes.forEach { append(it) } }
+    private val timelineStage: Stage = Stage.NAME().apply { boxes.forEach { append(it) } }
 
-    private val easingStage: Stage = newStage()
+    private val easingStage: Stage = Stage.NAME()
 
-    private val dotElement: Dot = newDot()
+    private val dotElement: Dot = Dot.NAME()
 
     private val timelinePlay = createButton()
 
@@ -145,12 +143,12 @@ internal class AnimationPage : DemoPage() {
                 "from(target, tweenVars { y = …; opacity = 0.0 }, Position(i * 0.15)) }",
         )
 
-        val timelineSection = sectionBlock()
+        val timelineSection = SectionBlock.NAME { show() }
         texts.bind(timelineSection.heading, { it.timelineHeading })
         texts.bind(timelineSection.hint, { it.timelineHint })
         timelineSection.body.append(row(timelinePlay, timelineReset), timelineStage, timelineSnippet)
 
-        val easingSection = sectionBlock()
+        val easingSection = SectionBlock.NAME { show() }
         texts.bind(easingSection.heading, { it.easingHeading })
         texts.bind(easingSection.hint, { it.easingHint })
         easingSection.body.append(row(easingLabel, easingSelect, easingPlay), easingStage)
@@ -203,17 +201,5 @@ internal class AnimationPage : DemoPage() {
         texts.apply(lang)
     }
 
-    companion object : CustomElementReference<AnimationPage>(AnimationPage::class.js) {
-        val NAME: TagName<AnimationPage> = TagName("gsap-animation-page")
-
-        fun define() {
-            defineIfMissing(NAME, this)
-        }
-    }
-}
-
-/** Creates a defined `<gsap-animation-page>`. */
-internal fun newAnimationPage(): AnimationPage {
-    AnimationPage.define()
-    return AnimationPage.NAME()
+    companion object : CustomElementReferenceAdapter<AnimationPage>(AnimationPage::class.js, "gsap-animation-page")
 }

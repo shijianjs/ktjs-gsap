@@ -4,10 +4,8 @@ import io.github.shijianjs.ktjs.dom.element.inlineStyle
 import io.github.shijianjs.ktjs.dom.element.invoke
 import io.github.shijianjs.ktjs.dom.webcomponent.CustomElementAdapter
 import io.github.shijianjs.ktjs.dom.webcomponent.attachShadowRoot
-import io.github.shijianjs.ktjs.dom.webcomponent.defineIfMissing
-import web.components.CustomElementReference
+import io.github.shijianjs.ktjs.dom.webcomponent.CustomElementReferenceAdapter
 import web.cssom.px
-import web.dom.TagName
 import web.events.EventHandler
 import web.html.HTMLSelectElement
 import web.html.HtmlTagName
@@ -42,17 +40,12 @@ internal class EasingPicker : CustomElementAdapter() {
         select.onchange = EventHandler { action() }
     }
 
-    companion object : CustomElementReference<EasingPicker>(EasingPicker::class.js) {
-        val NAME: TagName<EasingPicker> = TagName("gsap-easing-picker")
-
-        fun define() {
-            defineIfMissing(NAME, this)
-        }
-    }
+    companion object : CustomElementReferenceAdapter<EasingPicker>(EasingPicker::class.js, "gsap-easing-picker")
 }
 
 /** Creates a defined `<gsap-easing-picker>` offering [easings]. */
 internal fun newEasingPicker(easings: List<String>): EasingPicker {
-    EasingPicker.define()
+    // The companion registers the tag in its `init`; reading `NAME` upgrades the element the page already spells.
+    EasingPicker.NAME
     return EasingPicker.NAME().also { it.offer(easings) }
 }

@@ -4,11 +4,10 @@ import io.github.shijianjs.ktjs.demo.style.Palette
 import io.github.shijianjs.ktjs.dom.element.inlineStyle
 import io.github.shijianjs.ktjs.dom.element.invoke
 import io.github.shijianjs.ktjs.dom.webcomponent.CustomElementAdapter
-import io.github.shijianjs.ktjs.dom.webcomponent.defineIfMissing
+import io.github.shijianjs.ktjs.dom.webcomponent.CustomElementReferenceAdapter
 import io.github.shijianjs.ktjs.gsap.core.TweenTarget
 import kotlin.js.JsAny
 import kotlin.js.unsafeCast
-import web.components.CustomElementReference
 import web.cssom.AlignItems
 import web.cssom.Border
 import web.cssom.ClassName
@@ -21,7 +20,6 @@ import web.cssom.Padding
 import web.cssom.Position
 import web.cssom.`var`
 import web.cssom.px
-import web.dom.TagName
 import web.html.HTMLElement
 
 /** The class the end-to-end suite uses to find the animated boxes; it carries no styling. */
@@ -60,17 +58,5 @@ internal class Stage : CustomElementAdapter() {
         }
     }
 
-    companion object : CustomElementReference<Stage>(Stage::class.js) {
-        val NAME: TagName<Stage> = TagName("gsap-stage")
-
-        fun define() {
-            defineIfMissing(NAME, this)
-        }
-    }
-}
-
-/** Creates a defined `<gsap-stage>`. */
-internal fun newStage(): Stage {
-    Stage.define()
-    return Stage.NAME()
+    companion object : CustomElementReferenceAdapter<Stage>(Stage::class.js, "gsap-stage")
 }

@@ -3,8 +3,7 @@ package demo.page.animation
 import io.github.shijianjs.ktjs.dom.element.inlineStyle
 import io.github.shijianjs.ktjs.dom.element.invoke
 import io.github.shijianjs.ktjs.dom.webcomponent.CustomElementAdapter
-import io.github.shijianjs.ktjs.dom.webcomponent.defineIfMissing
-import web.components.CustomElementReference
+import io.github.shijianjs.ktjs.dom.webcomponent.CustomElementReferenceAdapter
 import web.cssom.AlignItems
 import web.cssom.ClassName
 import web.cssom.Color
@@ -12,7 +11,6 @@ import web.cssom.Display
 import web.cssom.FontWeight
 import web.cssom.JustifyContent
 import web.cssom.px
-import web.dom.TagName
 
 /** The class the end-to-end suite looks the squares up by; the styling sits on the element itself. */
 private val BOX: ClassName = ClassName("box")
@@ -45,17 +43,12 @@ internal class Box : CustomElementAdapter() {
         textContent = index.toString()
     }
 
-    companion object : CustomElementReference<Box>(Box::class.js) {
-        val NAME: TagName<Box> = TagName("gsap-box")
-
-        fun define() {
-            defineIfMissing(NAME, this)
-        }
-    }
+    companion object : CustomElementReferenceAdapter<Box>(Box::class.js, "gsap-box")
 }
 
 /** Creates a defined `<gsap-box>` showing [index]. */
 internal fun newBox(index: Int): Box {
-    Box.define()
+    // The companion registers the tag in its `init`; reading `NAME` upgrades the element the page already spells.
+    Box.NAME
     return Box.NAME().also { it.show(index) }
 }
