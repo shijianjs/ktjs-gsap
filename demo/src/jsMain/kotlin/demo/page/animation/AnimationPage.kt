@@ -146,12 +146,12 @@ internal class AnimationPage : DemoPage() {
         )
 
         val timelineSection = sectionBlock()
-        texts.bind(timelineSection.title, { it.timelineHeading })
+        texts.bind(timelineSection.heading, { it.timelineHeading })
         texts.bind(timelineSection.hint, { it.timelineHint })
         timelineSection.body.append(row(timelinePlay, timelineReset), timelineStage, timelineSnippet)
 
         val easingSection = sectionBlock()
-        texts.bind(easingSection.title, { it.easingHeading })
+        texts.bind(easingSection.heading, { it.easingHeading })
         texts.bind(easingSection.hint, { it.easingHint })
         easingSection.body.append(row(easingLabel, easingSelect, easingPlay), easingStage)
 

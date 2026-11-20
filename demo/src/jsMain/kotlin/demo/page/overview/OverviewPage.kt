@@ -112,7 +112,7 @@ internal class OverviewPage : DemoPage() {
         addLink(texts.bind(anchor("", SOURCE_URL, external = true), { it.sourceLink }))
 
         val purpose = sectionBlock()
-        texts.bind(purpose.title, { it.purposeHeading })
+        texts.bind(purpose.heading, { it.purposeHeading })
 
         // One `li` per bullet, each bound to its own string: a language switch rewrites the text and
         // leaves the list itself alone.
@@ -122,7 +122,7 @@ internal class OverviewPage : DemoPage() {
         purpose.body.append(texts.bind(paragraph(), { it.body }), bullets)
 
         val coordinates = sectionBlock()
-        texts.bind(coordinates.title, { it.coordinatesHeading })
+        texts.bind(coordinates.heading, { it.coordinatesHeading })
         texts.bind(coordinates.hint, { it.coordinatesNote })
         coordinates.body.append(
             row(codeText("implementation(\"io.github.shijianjs:ktjs-gsap:3.15.1-kt.1\")")),
@@ -130,7 +130,7 @@ internal class OverviewPage : DemoPage() {
         )
 
         val next = sectionBlock()
-        texts.bind(next.title, { it.nextHeading })
+        texts.bind(next.heading, { it.nextHeading })
         next.body.append(texts.bind(paragraph(), { it.nextBody }))
 
         body.append(purpose.root, coordinates.root, next.root)
