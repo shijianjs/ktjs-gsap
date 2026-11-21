@@ -15,6 +15,14 @@ title: API overview
 | `…gsap.plugins` | one file per plugin: the module object, the class object `val`, the instance class and the vars interface |
 | `…gsap.ease` | the easing names (`Eases.back.out`) and the `EasePack` classes |
 
+```mermaid
+flowchart LR
+    G["the gsap object + tweenVars / timelineVars / gsapConfig"] --> CORE["…gsap.core: Animation / Tween / Timeline + the vars interfaces"]
+    G --> UTILS["…gsap.utils: clamp / mapRange / snap / wrap …"]
+    G --> PLUG["…gsap.plugins: one file per plugin<br/>module object + class object + instance class + vars"]
+    G --> EASE["…gsap.ease: constants such as Eases.back.out + EasePack"]
+```
+
 ## Conventions this wrapper follows
 
 - A union type is one opaque interface plus one factory per branch: `TweenTarget(String)`,

@@ -39,6 +39,14 @@ val trigger = scrollTrigger.create(scrollTriggerVars { trigger = DomTarget("#her
 
 也支持显式注册：`gsap.registerPlugin(scrollTrigger)`。
 
+```mermaid
+flowchart LR
+    IMP["import …gsap.plugins.scrollTrigger"] --> TOUCH["读一次类对象<br/>模块被加载，插件随之注册"]
+    TOUCH --> REG["或者显式 gsap.registerPlugin(scrollTrigger)"]
+    REG --> TWEEN["gsap.to(TweenTarget('.card'), tweenVars { … })"]
+    TWEEN --> INST["Tween / Timeline 实例"]
+```
+
 ## 第一个调用
 
 ```kotlin

@@ -15,6 +15,14 @@ title: API 概览
 | `…gsap.plugins` | 每个插件一个文件：模块对象、类对象 `val`、实例类与 vars 接口 |
 | `…gsap.ease` | 缓动名称（`Eases.backOut`）与 `EasePack` 里的缓动类 |
 
+```mermaid
+flowchart LR
+    G["gsap 对象 + tweenVars / timelineVars / gsapConfig"] --> CORE["…gsap.core：Animation / Tween / Timeline + vars 接口"]
+    G --> UTILS["…gsap.utils：clamp / mapRange / snap / wrap …"]
+    G --> PLUG["…gsap.plugins：每插件一文件<br/>模块对象 + 类对象 + 实例类 + vars"]
+    G --> EASE["…gsap.ease：Eases.back.out 等常量 + EasePack"]
+```
+
 ## 本 wrapper 的约定
 
 - 联合类型 = 一个不透明接口 + 每个分支一个同名工厂：`TweenTarget(String)`、
