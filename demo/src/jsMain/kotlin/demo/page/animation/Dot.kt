@@ -3,7 +3,6 @@ package demo.page.animation
 import io.github.shijianjs.ktjs.dom.element.inlineStyle
 import io.github.shijianjs.ktjs.dom.element.invoke
 import io.github.shijianjs.ktjs.dom.webcomponent.CustomElementAdapter
-import io.github.shijianjs.ktjs.dom.webcomponent.CustomElementReferenceAdapter
 import web.cssom.px
 
 /** `<gsap-dot>`: the single node of the easing example. */
@@ -19,5 +18,5 @@ internal class Dot : CustomElementAdapter() {
         }
     }
 
-    companion object : CustomElementReferenceAdapter<Dot>(Dot::class.js, "gsap-dot")
+    companion object : DotDefaultReference()
 }

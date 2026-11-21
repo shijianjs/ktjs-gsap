@@ -4,7 +4,6 @@ import io.github.shijianjs.ktjs.dom.element.inlineStyle
 import io.github.shijianjs.ktjs.dom.element.invoke
 import io.github.shijianjs.ktjs.dom.webcomponent.CustomElementAdapter
 import io.github.shijianjs.ktjs.dom.webcomponent.attachShadowRoot
-import io.github.shijianjs.ktjs.dom.webcomponent.CustomElementReferenceAdapter
 import web.cssom.px
 import web.events.EventHandler
 import web.html.HTMLSelectElement
@@ -40,5 +39,5 @@ internal class EasingPicker : CustomElementAdapter() {
         select.onchange = EventHandler { action() }
     }
 
-    companion object : CustomElementReferenceAdapter<EasingPicker>(EasingPicker::class.js, "gsap-easing-picker")
+    companion object : EasingPickerDefaultReference()
 }

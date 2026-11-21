@@ -10,7 +10,6 @@ import io.github.shijianjs.ktjs.demo.page.Blocks.codeText
 import io.github.shijianjs.ktjs.demo.page.Blocks.row
 import io.github.shijianjs.ktjs.demo.page.SectionBlock
 import io.github.shijianjs.ktjs.dom.element.invoke
-import io.github.shijianjs.ktjs.dom.webcomponent.CustomElementReferenceAdapter
 import io.github.shijianjs.ktjs.gsap.core.EaseLike
 import io.github.shijianjs.ktjs.gsap.core.Position
 import io.github.shijianjs.ktjs.gsap.core.TweenTarget
@@ -147,7 +146,7 @@ internal class AnimationPage : DemoPage() {
         texts.apply(lang)
     }
 
-    companion object : CustomElementReferenceAdapter<AnimationPage>(AnimationPage::class.js, "gsap-animation-page") {
+    companion object : AnimationPageDefaultReference() {
 
         private val animationEnglish: AnimationTexts = AnimationTexts(
             title = "Animation",

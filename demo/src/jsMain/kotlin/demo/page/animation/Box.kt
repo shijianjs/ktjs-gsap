@@ -3,7 +3,6 @@ package demo.page.animation
 import io.github.shijianjs.ktjs.dom.element.inlineStyle
 import io.github.shijianjs.ktjs.dom.element.invoke
 import io.github.shijianjs.ktjs.dom.webcomponent.CustomElementAdapter
-import io.github.shijianjs.ktjs.dom.webcomponent.CustomElementReferenceAdapter
 import web.cssom.AlignItems
 import web.cssom.ClassName
 import web.cssom.Color
@@ -40,7 +39,7 @@ internal class Box : CustomElementAdapter() {
         textContent = index.toString()
     }
 
-    companion object : CustomElementReferenceAdapter<Box>(Box::class.js, "gsap-box") {
+    companion object : BoxDefaultReference() {
 
         /** The class the end-to-end suite looks the squares up by; the styling sits on the element itself. */
         private val BOX: ClassName = ClassName("box")
