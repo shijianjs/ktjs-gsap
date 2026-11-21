@@ -49,12 +49,12 @@ class DemoPageTest {
     fun `the language menu swaps the page copy`(page: Page) {
         page.navigate("/#/overview", Page.NavigateOptions().setWaitUntil(WaitUntilState.NETWORKIDLE))
 
-        assertEquals("Overview", page.locator("ktjs-demo-page h1").first().textContent())
+        assertEquals("Overview", page.locator("gsap-overview-page h1").first().textContent())
 
         page.locator("[data-menu='lang']").first().click()
         page.locator("[data-action='lang:zh-Hans']").first().click()
 
-        assertEquals("概览", page.locator("ktjs-demo-page h1").first().textContent())
+        assertEquals("概览", page.locator("gsap-overview-page h1").first().textContent())
         assertEquals("zh-Hans", page.locator("html").getAttribute("lang"))
     }
 
