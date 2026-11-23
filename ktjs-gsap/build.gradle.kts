@@ -62,7 +62,7 @@ kotlin {
 
             // `js.objects.unsafeJso` builds the vars objects (`TweenVars`, `ScrollTriggerVars`, …) a
             // consumer passes to GSAP. `kotlin-browser` does not re-export it.
-            api("org.jetbrains.kotlin-wrappers:kotlin-js:2026.11.1")
+            api("org.jetbrains.kotlin-wrappers:kotlin-js:2026.11.2")
         }
         jsTest.dependencies {
             implementation(kotlin("test"))
