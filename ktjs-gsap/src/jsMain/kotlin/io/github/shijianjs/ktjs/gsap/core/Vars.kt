@@ -1,5 +1,6 @@
 package io.github.shijianjs.ktjs.gsap.core
 
+import js.reflect.Reflect
 import kotlin.js.JsAny
 import web.dom.Element
 import web.window.Window
@@ -564,4 +565,4 @@ typealias TickerFunction = (time: Double, deltaTime: Double, frame: Double, elap
 external interface EffectsMap
 
 /** Reads the effect registered under [name], ready to be called with its vars. */
-fun EffectsMap.getEffect(name: String): JsAny? = js("this[name]")
+fun EffectsMap.getEffect(name: String): JsAny? = Reflect.get(this, name)
