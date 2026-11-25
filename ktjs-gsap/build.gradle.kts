@@ -58,11 +58,11 @@ kotlin {
 
             // The public surface exposes kotlin-browser types (`HTMLElement`, `Element`), so this is
             // `api`: a consumer compiles against them through this module.
-            api("org.jetbrains.kotlin-wrappers:kotlin-browser:2026.11.2")
+            api(libs.kotlin.browser)
 
             // `js.objects.unsafeJso` builds the vars objects (`TweenVars`, `ScrollTriggerVars`, …) a
             // consumer passes to GSAP. `kotlin-browser` does not re-export it.
-            api("org.jetbrains.kotlin-wrappers:kotlin-js:2026.11.2")
+            api(libs.kotlin.js)
         }
         jsTest.dependencies {
             implementation(kotlin("test"))
